@@ -54,6 +54,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+let g:coc_global_extensions = ['coc-clangd', 'coc-json', 'coc-yaml', 'coc-toml', 'coc-rls', 'coc-go', 'coc-cmake', '@yaegassy/coc-pylsp']
+
 " Terminal Function
 let g:term_buf = 0
 let g:term_win = 0
