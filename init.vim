@@ -8,6 +8,12 @@
 
 :set mouse=a
 
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin()
 
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
@@ -18,8 +24,9 @@ Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple c
 Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
 Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion
-Plug 'kaicataldo/material.vim', { 'branch': 'main' } " Material theme
-Plug 'fatih/vim-go'
+Plug 'https://github.com/joshdick/onedark.vim' " OneDark
+Plug 'fatih/vim-go' " Golang for Vim
+Plug 'https://github.com/jiangmiao/auto-pairs' " Auto pair brackets
 
 call plug#end()
 
@@ -27,6 +34,14 @@ call plug#end()
 nnoremap <C-z> :undo<CR>
 nnoremap <C-y> :redo<CR>
 nnoremap <C-s> :w<CR>
+
+" Moving lines
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 
 command VimConfig e ~/.config/nvim/init.vim
 
@@ -100,7 +115,5 @@ if (has('termguicolors'))
   set termguicolors
 endif
 
-let g:material_theme_style = 'darker'
-
-colorscheme material
+colorscheme onedark
 
